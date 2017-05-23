@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var brain = CalculateBrain()
+    
     // track value of display label
     var displayValue: Double {
         get {
@@ -38,15 +40,12 @@ class ViewController: UIViewController {
     
     @IBAction func performOperation(_ sender: UIButton) {
         userIsInTheMiddleOfTyping = false
+        brain.set(operand: displayValue)
         if let mathematicalSymbol = sender.currentTitle {
-            switch mathematicalSymbol {
-            case "π":
-                displayValue = Double.pi
-            case "√":
-                displayValue = sqrt(displayValue)
-            default:
-                break
-            }
+            brain.perform(operation: mathematicalSymbol)
+        }
+        if let result = brain.result {
+            displayValue = result
         }
     }
 }
